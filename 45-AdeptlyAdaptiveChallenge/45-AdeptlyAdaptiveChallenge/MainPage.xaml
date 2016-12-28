@@ -1,0 +1,142 @@
+﻿<Page
+    x:Class="_45_AdeptlyAdaptiveChallenge.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:_45_AdeptlyAdaptiveChallenge"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <ResourceDictionary>
+            <Style 
+                TargetType="TextBlock"
+                x:Key="MainMenuIcon">
+                
+                <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+                <Setter Property="FontSize" Value="36"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="Margin" Value="0,0,20,0"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+            <Style 
+                TargetType="TextBlock"
+                x:Key="MainMenuLabel">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="FontSize" Value="26"/>
+            </Style>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <!-- Header begin -->
+        <Button
+            Background="#CCCCCC"
+            Content="&#xE700;"
+            Grid.Column="0"
+            Grid.Row="0"
+            FontSize="36"
+            FontFamily="Segoe MDL2 Assets"
+            Name="HamburgerMenuButton"
+            Click="HamburgerMenuButton_Click"
+            />
+        <RelativePanel
+            Grid.Column="1"
+            Grid.Row="0">
+            <TextBlock
+                FontSize="22"
+                FontWeight="Bold"
+                Margin="20, 0"
+                Padding="0"
+                RelativePanel.AlignLeftWithPanel="True"
+                RelativePanel.AlignVerticalCenterWithPanel="True"
+                Text="Financial"/>
+            <RelativePanel
+                BorderBrush="#7A7A7A"
+                BorderThickness="2"
+                Margin="0,0,5,0"
+                RelativePanel.AlignVerticalCenterWithPanel="True"
+                RelativePanel.AlignRightWithPanel="True">
+                <TextBox 
+                    BorderThickness="0"
+                    FontSize="18"
+                    PlaceholderText="Search"
+                    RelativePanel.AlignVerticalCenterWith="SearchIcon"
+                    RelativePanel.LeftOf="SearchIcon"
+                    Width="200"/>
+                <Button 
+                    Background="White"
+                    Content="&#xE11A;"
+                    FontFamily="Segoe MDL2 Assets"
+                    FontSize="18"
+                    Name="SearchIcon"
+                    RelativePanel.AlignRightWithPanel="True"
+                    RelativePanel.AlignVerticalCenterWithPanel="True"/>
+            </RelativePanel>
+        </RelativePanel>
+        <!-- Header end -->
+
+        <!-- Content begin -->
+        <SplitView
+            CompactPaneLength="56"
+            DisplayMode="CompactOverlay"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Grid.Row="1"
+            IsPaneOpen="False"
+            Name="LeftMenu"
+            OpenPaneLength="180"
+            PanePlacement="Left">
+            <SplitView.Pane>
+                <ListView
+                    Background="#F2F2F2"
+                    Name="MainMenu"
+                    ItemClick="MainMenu_ItemClick"
+                    IsItemClickEnabled="True"
+                    SelectionMode="Single"
+                    >
+                    <ListViewItem
+                        Name="FinancialNavigationItem"
+                        >
+                        <StackPanel
+                            Orientation="Horizontal">
+                            <TextBlock
+                                Text="&#xE80F;"
+                                Style="{StaticResource MainMenuIcon}"/>
+                            <TextBlock
+                                Text="Financial"
+                                Style="{StaticResource MainMenuLabel}"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem
+                        Name="FoodNavigationItem">
+                        <StackPanel
+                            Orientation="Horizontal">
+                            <TextBlock
+                                Text="&#xED56;"
+                                Style="{StaticResource MainMenuIcon}"/>
+                            <TextBlock
+                                Text="Food"
+                                Style="{StaticResource MainMenuLabel}"/>
+                        </StackPanel>
+                    </ListViewItem>
+                </ListView>
+            </SplitView.Pane>
+            <SplitView.Content>
+                <Frame Name="Pages"/>
+            </SplitView.Content>
+        </SplitView>
+        <!-- Content end -->
+        
+    </Grid>
+</Page>
