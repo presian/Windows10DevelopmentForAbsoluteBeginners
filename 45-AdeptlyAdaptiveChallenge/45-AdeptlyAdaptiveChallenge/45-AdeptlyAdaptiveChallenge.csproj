@@ -95,6 +95,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataModels\ApplicationState.cs" />
     <Compile Include="FinancialPage.xaml.cs">
       <DependentUpon>FinancialPage.xaml</DependentUpon>
     </Compile>

@@ -24,6 +24,9 @@ namespace _45_AdeptlyAdaptiveChallenge
     {
         public FinancialPage()
         {
+            App.State.CurrentPageTitle = "Financial";
+            App.State.ShowBackButton = false;
+//            App.ChangeTitle("Financial");
             this.InitializeComponent();
         }
     }

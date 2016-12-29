@@ -24,6 +24,8 @@ namespace _45_AdeptlyAdaptiveChallenge
     {
         public FoodPage()
         {
+            App.State.CurrentPageTitle = "Food";
+            App.State.ShowBackButton = true;
             this.InitializeComponent();
         }
     }

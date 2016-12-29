@@ -11,7 +11,7 @@
             <Style 
                 TargetType="TextBlock"
                 x:Key="MainMenuIcon">
-                
+
                 <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
                 <Setter Property="FontSize" Value="36"/>
                 <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -53,14 +53,31 @@
         <RelativePanel
             Grid.Column="1"
             Grid.Row="0">
-            <TextBlock
-                FontSize="22"
-                FontWeight="Bold"
-                Margin="20, 0"
-                Padding="0"
+            <StackPanel
+                Orientation="Horizontal"
                 RelativePanel.AlignLeftWithPanel="True"
-                RelativePanel.AlignVerticalCenterWithPanel="True"
-                Text="Financial"/>
+                RelativePanel.AlignVerticalCenterWithPanel="True">
+                <Button
+                    Background="White"
+                    Click="BackArrow_Click"
+                    FontFamily="Segoe MDL2 Assets"
+                    FontSize="26"
+                    FontWeight="Bold"
+                    Margin="10, 0"
+                    Name="BackArrow"
+                    Padding="0"
+                    Content="&#xE016;"
+                    VerticalAlignment="Center"
+                    Visibility="Collapsed"/>
+                <TextBlock
+                    FontSize="22"
+                    FontWeight="Bold"
+                    Margin="20, 0"
+                    Name="Title"
+                    Padding="0"
+                    Text="Financial"
+                    VerticalAlignment="Center"/>
+            </StackPanel>
             <RelativePanel
                 BorderBrush="#7A7A7A"
                 BorderThickness="2"
@@ -133,7 +150,8 @@
                 </ListView>
             </SplitView.Pane>
             <SplitView.Content>
-                <Frame Name="Pages"/>
+                <Frame 
+                    Name="Pages"/>
             </SplitView.Content>
         </SplitView>
         <!-- Content end -->
