@@ -23,17 +23,48 @@ namespace _45_AdeptlyAdaptiveChallenge
     /// </summary>
     public sealed partial class App : Application
     {
-        public static ApplicationState State = new ApplicationState();
+        /// <summary>
+        /// The state.
+        /// </summary>
+        private static ApplicationState state;
 
         /// <summary>
+        /// The factory.
+        /// </summary>
+        private static DataFactory factory = new DataFactory();
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="App"/> class. 
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
         public App()
         {
+            State = new ApplicationState();
             this.InitializeComponent();
-            this.Suspending += OnSuspending;
+            this.Suspending += this.OnSuspending;
         }
+
+        /// <summary>
+        /// Gets the state.
+        /// </summary>
+        public static ApplicationState State
+        {
+            get
+            {
+                return state;
+            }
+
+            private set
+            {
+                state = value;
+            }
+        }
+
+        /// <summary>
+        /// The factory.
+        /// </summary>
+        public static DataFactory Factory => factory;
 
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
