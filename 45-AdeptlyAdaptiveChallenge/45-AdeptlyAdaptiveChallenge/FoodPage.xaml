@@ -3,41 +3,43 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:_45_AdeptlyAdaptiveChallenge"
+    xmlns:tepmlates="using:_45_AdeptlyAdaptiveChallenge.Templates"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:data ="using:_45_AdeptlyAdaptiveChallenge.DataModels"
     mc:Ignorable="d">
-    <Page.Resources>
-        <DataTemplate 
-            x:Key="NewsDataTemplate" 
-            x:DataType="data:NewsItem">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                <Image Name="image" Source="{x:Bind Image}" HorizontalAlignment="Center" Width="150" />
-                <StackPanel Margin="20,20,0,0">
-                    <TextBlock Text="{x:Bind Headline}" HorizontalAlignment="Left" FontSize="16" />
-                    <TextBlock Text="{x:Bind Subhead}" HorizontalAlignment="Left" FontSize="10" />
-                    <TextBlock Text="{x:Bind DateLine}" HorizontalAlignment="Left" FontSize="10" />
-                </StackPanel>
-            </StackPanel>
-        </DataTemplate>
-<!--        <ResourceDictionary>-->
-<!--            <ResourceDictionary.MergedDictionaries>-->
-<!--                <ResourceDictionary Source="Templates/NewsItemDataTemplate.xaml"></ResourceDictionary>-->
-<!--            </ResourceDictionary.MergedDictionaries>-->
-<!--        </ResourceDictionary>-->
-    </Page.Resources>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="LightGray">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <ListView
-            ItemsSource="{x:Bind News}" 
-            IsItemClickEnabled="True" 
-            ItemTemplate="{StaticResource NewsDataTemplate}">
-        </ListView>
+        <tepmlates:NewsItemListDataTemplate News="{x:Bind News, Mode=OneWay}"/>
     </Grid>
 </Page>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

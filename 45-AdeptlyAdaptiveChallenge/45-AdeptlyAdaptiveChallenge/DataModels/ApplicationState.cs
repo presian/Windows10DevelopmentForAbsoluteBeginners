@@ -7,6 +7,20 @@ namespace _45_AdeptlyAdaptiveChallenge.DataModels
         public event EventHandler StateUpdate;
         private string currentPageTitle;
         private bool showBackButton;
+        private int activeNavigationButtonIndex;
+
+        public int ActiveNavigationButtonIndex
+        {
+            get
+            {
+                return this.activeNavigationButtonIndex;
+            }
+            set
+            {
+                this.activeNavigationButtonIndex = value;
+                this.ChangeState();
+            }
+        }
 
         public ApplicationState()
         {

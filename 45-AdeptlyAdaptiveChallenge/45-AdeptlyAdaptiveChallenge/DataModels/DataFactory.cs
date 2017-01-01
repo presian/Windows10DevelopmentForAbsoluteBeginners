@@ -67,7 +67,7 @@ namespace _45_AdeptlyAdaptiveChallenge.DataModels
                                         Headline = "Lorem Ipsum",
                                         Subhead = "doro sit amet",
                                         DateLine = "Nunc tristique nec",
-                                        Image = "Assets/MyAssets/Financial1.png"
+                                        Image = "../Assets/MyAssets/Financial1.png"
                                     },
                                 new NewsItem()
                                     {
@@ -76,7 +76,7 @@ namespace _45_AdeptlyAdaptiveChallenge.DataModels
                                         Headline = "Etiam ac felis viverra",
                                         Subhead = "vulputate nisl ac, aliquet nisi",
                                         DateLine = "tortor porttitor, eu fermentum ante congue",
-                                        Image = "Assets/MyAssets/Financial2.png"
+                                        Image = "../Assets/MyAssets/Financial2.png"
                                     },
                                 new NewsItem()
                                     {
@@ -85,7 +85,7 @@ namespace _45_AdeptlyAdaptiveChallenge.DataModels
                                         Headline = "Integer sed turpis erat",
                                         Subhead = "Sed quis hendrerit lorem, quis interdum dolor",
                                         DateLine = "in viverra metus facilisis sed",
-                                        Image = "Assets/MyAssets/Financial3.png"
+                                        Image = "../Assets/MyAssets/Financial3.png"
                                     },
                                 new NewsItem()
                                     {
@@ -94,7 +94,7 @@ namespace _45_AdeptlyAdaptiveChallenge.DataModels
                                         Headline = "Proin sem neque",
                                         Subhead = "aliquet quis ipsum tincidunt",
                                         DateLine = "Integer eleifend",
-                                        Image = "Assets/MyAssets/Financial4.png"
+                                        Image = "../Assets/MyAssets/Financial4.png"
                                     },
                                 new NewsItem()
                                     {
@@ -103,7 +103,7 @@ namespace _45_AdeptlyAdaptiveChallenge.DataModels
                                         Headline = "Mauris bibendum non leo vitae tempor",
                                         Subhead = "In nisl tortor, eleifend sed ipsum eget",
                                         DateLine = "Curabitur dictum augue vitae elementum ultrices",
-                                        Image = "Assets/MyAssets/Financial5.png"
+                                        Image = "../Assets/MyAssets/Financial5.png"
                                     },
                                 new NewsItem()
                                     {
@@ -112,7 +112,7 @@ namespace _45_AdeptlyAdaptiveChallenge.DataModels
                                         Headline = "Lorem ipsum",
                                         Subhead = "dolor sit amet",
                                         DateLine = "Nunc tristique nec",
-                                        Image = "Assets/MyAssets/Food1.png"
+                                        Image = "../Assets/MyAssets/Food1.png"
                                     },
                                 new NewsItem()
                                     {
@@ -121,7 +121,7 @@ namespace _45_AdeptlyAdaptiveChallenge.DataModels
                                         Headline = "Etiam ac felis viverra",
                                         Subhead = "vulputate nisl ac, aliquet nisi",
                                         DateLine = "tortor porttitor, eu fermentum ante congue",
-                                        Image = "Assets/MyAssets/Food2.png"
+                                        Image = "../Assets/MyAssets/Food2.png"
                                     },
                                 new NewsItem()
                                     {
@@ -130,7 +130,7 @@ namespace _45_AdeptlyAdaptiveChallenge.DataModels
                                         Headline = "Integer sed turpis erat",
                                         Subhead = "Sed quis hendrerit lorem, quis interdum dolor",
                                         DateLine = "in viverra metus facilisis sed",
-                                        Image = "Assets/MyAssets/Food3.png"
+                                        Image = "../Assets/MyAssets/Food3.png"
                                     },
                                 new NewsItem()
                                     {
@@ -139,7 +139,7 @@ namespace _45_AdeptlyAdaptiveChallenge.DataModels
                                         Headline = "Proin sem neque",
                                         Subhead = "aliquet quis ipsum tincidunt",
                                         DateLine = "Integer eleifend",
-                                        Image = "Assets/MyAssets/Food4.png"
+                                        Image = "../Assets/MyAssets/Food4.png"
                                     },
                                 new NewsItem()
                                     {
@@ -148,7 +148,7 @@ namespace _45_AdeptlyAdaptiveChallenge.DataModels
                                         Headline = "Mauris bibendum non leo vitae tempor",
                                         Subhead = "In nisl tortor, eleifend sed ipsum eget",
                                         DateLine = "Curabitur dictum augue vitae elementum ultrices",
-                                        Image = "Assets/MyAssets/Food5.png"
+                                        Image = "../Assets/MyAssets/Food5.png"
                                     }
                             };
 

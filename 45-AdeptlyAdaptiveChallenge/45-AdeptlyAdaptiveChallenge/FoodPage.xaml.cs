@@ -41,6 +41,7 @@ namespace _45_AdeptlyAdaptiveChallenge
         {
             App.State.CurrentPageTitle = "Food";
             App.State.ShowBackButton = true;
+            App.State.ActiveNavigationButtonIndex = 1;
             this.News = App.Factory.GetItemsByCategory(this.category);
             this.InitializeComponent();
         }

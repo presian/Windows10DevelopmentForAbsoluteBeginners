@@ -5,9 +5,14 @@
     xmlns:local="using:_45_AdeptlyAdaptiveChallenge"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:templates="using:_45_AdeptlyAdaptiveChallenge.Templates"
     mc:Ignorable="d">
-
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock Text="FinancialPage"/>
+    
+    <Grid Background="LightGray">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <templates:NewsItemListDataTemplate News="{x:Bind News, Mode=OneWay}"/>
     </Grid>
 </Page>
