@@ -30,6 +30,7 @@ namespace _45_AdeptlyAdaptiveChallenge
             if (state != null)
             {
                 this.Title.Text = state.CurrentPageTitle;
+                this.MainMenu.SelectedIndex = state.ActiveNavigationButtonIndex;
                 if (state.ShowBackButton)
                 {
                     this.BackArrow.Visibility = Visibility.Visible;

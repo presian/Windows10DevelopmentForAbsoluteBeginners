@@ -96,6 +96,9 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataModels\ApplicationState.cs" />
+    <Compile Include="DataModels\DataFactory.cs" />
+    <Compile Include="DataModels\NewsItem.cs" />
+    <Compile Include="Enumeration\Categories.cs" />
     <Compile Include="FinancialPage.xaml.cs">
       <DependentUpon>FinancialPage.xaml</DependentUpon>
     </Compile>
@@ -106,6 +109,9 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Templates\NewsItemListDataTemplate.xaml.cs">
+      <DependentUpon>NewsItemListDataTemplate.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -114,6 +120,16 @@
     <None Include="45-AdeptlyAdaptiveChallenge_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\MyAssets\Financial1.png" />
+    <Content Include="Assets\MyAssets\Financial2.png" />
+    <Content Include="Assets\MyAssets\Financial3.png" />
+    <Content Include="Assets\MyAssets\Financial4.png" />
+    <Content Include="Assets\MyAssets\Financial5.png" />
+    <Content Include="Assets\MyAssets\Food1.png" />
+    <Content Include="Assets\MyAssets\Food2.png" />
+    <Content Include="Assets\MyAssets\Food3.png" />
+    <Content Include="Assets\MyAssets\Food4.png" />
+    <Content Include="Assets\MyAssets\Food5.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -139,6 +155,10 @@
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Templates\NewsItemListDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
