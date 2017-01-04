@@ -6,16 +6,21 @@
     xmlns:templates ="using:SoundBoard.DataTemplates"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:SoundBoard.Models"
     mc:Ignorable="d">
+    <Page.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ListBoxItemStyle" TargetType="ListBoxItem">
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="Margin" Value="5"/>
+            </Style>
+        </ResourceDictionary>
+    </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        
-        <SplitView Grid.Column="0"
-                   CompactPaneLength="40"
+        <SplitView
+                   CompactPaneLength="42"
+                   OpenPaneLength="160"
                    DisplayMode="CompactInline"
                    IsPaneOpen="False"
                    Name="ContentWrapper">
@@ -28,32 +33,44 @@
                     <ListBox
                         SelectionMode="Single"
                         Grid.Row="0">
-                        <ListBoxItem Padding="0">
+                        <ListBoxItem
+                            Style="{StaticResource ListBoxItemStyle}">
                             <StackPanel Orientation="Horizontal">
                                 <Button Background="Transparent"
-                                    Click="HamburgerButton_OnClick"
-                                    Content="&#xE700;"
-                                    FontFamily="Segoe MDL2 Assets" 
-                                    FontSize="20"
-                                    HorizontalAlignment="Center"
-                                    Name="HamburgerButton"
-                                    VerticalAlignment="Center"/>
-                                <TextBlock FontFamily="Segoe MDL2 Assets"
-                                       FontSize="20"
-                                       HorizontalAlignment="Stretch"
-                                       Text="&#xE0A6;"
-                                       VerticalAlignment="Center"
-                                       TextAlignment="Center"/>
+                                        Click="HamburgerButton_OnClick"
+                                        Content="&#xE700;"
+                                        FontFamily="Segoe MDL2 Assets" 
+                                        FontSize="26"
+                                        HorizontalAlignment="Stretch"
+                                        HorizontalContentAlignment="Stretch"
+                                        Name="HamburgerButton"
+                                        Padding="0"
+                                        VerticalAlignment="Center"/>
+                                <Button Background="Transparent"
+                                        Click="BackButton_OnClick"
+                                        Content="&#xE0A6;"
+                                        FontFamily="Segoe MDL2 Assets"
+                                        FontSize="20"
+                                        HorizontalAlignment="Stretch"
+                                        HorizontalContentAlignment="Center"
+                                        Margin="20,0,0,0"
+                                        Name="BackButton"
+                                        VerticalAlignment="Center"
+                                        Width="100"/>
                             </StackPanel>
                         </ListBoxItem>
                     </ListBox>
                     <ListBox Grid.Row="1" ItemsSource="{x:Bind MenuItems}"
+                             HorizontalContentAlignment="Stretch"
+                             ItemContainerStyle="{StaticResource ListBoxItemStyle}"
                              Name="MainMenu"
                              SelectionMode="Single"
                              SelectionChanged="MainMenu_OnSelectionChanged">
-<!--                        <ListBox.ItemTemplate>-->
-<!--~1~                            <DataTemplate></DataTemplate>@1@-->
-<!--                        </ListBox.ItemTemplate>-->
+                        <ListBox.ItemTemplate>
+                            <DataTemplate x:DataType="models:MenuItem">
+                                <templates:MainMenuItem/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
                     </ListBox>
                 </Grid>
             </SplitView.Pane>
@@ -61,16 +78,50 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition/>
                     </Grid.RowDefinitions>
+
+                    <MediaElement Name="MyMediaElement" AutoPlay="True"/>
                     
-                    
+                    <RelativePanel Grid.Row="0">
+                        <AutoSuggestBox PlaceholderText="Search for sounds" 
+                                        QueryIcon="Find"
+                                        Width="180"
+                                        RelativePanel.AlignRightWithPanel="True"/>
+                    </RelativePanel>
+
+                    <TextBlock Grid.Row="1" 
+                               FontSize="36"
+                               HorizontalAlignment="Center"
+                               Name="CategoryTitle" 
+                               Text="All Sounds"/>
+
+                    <GridView Grid.Row="2"
+                              Name="SoundGridView"
+                              SelectionMode="None"
+                              IsItemClickEnabled="True"
+                              ItemClick="SoundGridView_OnItemClick"
+                              ItemsSource="{x:Bind Sounds}">
+                        <GridView.ItemTemplate>
+                            <DataTemplate x:DataType="models:Sound">
+                                <templates:SoundItem></templates:SoundItem>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
                 </Grid>
             </SplitView.Content>
         </SplitView>
     </Grid>
 </Page>
+
+
+
+
+
+
+
+
 
 
 

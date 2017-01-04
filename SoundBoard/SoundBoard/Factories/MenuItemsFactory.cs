@@ -31,22 +31,22 @@ namespace SoundBoard.Factories
                 {
                 new MenuItem()
                     {
-                        ItemImage = AssetsHelper.MakeImagePath("SoundBoardAssets/Icons/animals.png"),
+                        ItemImage = AssetsHelper.MakeAssetsPath("Icons/animals.png"),
                         ItemText = "Animals"
                     },
                 new MenuItem()
                     {
-                        ItemImage = AssetsHelper.MakeImagePath("SoundBoardAssets/Icons/cartoon.png"),
+                        ItemImage = AssetsHelper.MakeAssetsPath("Icons/cartoon.png"),
                         ItemText = "Cartoons"
                     },
                 new MenuItem()
                     {
-                        ItemImage = AssetsHelper.MakeImagePath("SoundBoardAssets/Icons/taunt.png"),
+                        ItemImage = AssetsHelper.MakeAssetsPath("Icons/taunt.png"),
                         ItemText = "Taunts"
                     },
                 new MenuItem()
                     {
-                        ItemImage = AssetsHelper.MakeImagePath("SoundBoardAssets/Icons/warning.png"),
+                        ItemImage = AssetsHelper.MakeAssetsPath("Icons/warning.png"),
                         ItemText = "Warnings"
                     }
                 };

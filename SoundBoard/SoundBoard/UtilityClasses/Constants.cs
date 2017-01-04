@@ -24,7 +24,7 @@ namespace SoundBoard.UtilityClasses
         /// </returns>
         public static string AssetsRoot()
         {
-            return new Uri("ms-appx://SoundBoard/Assets/").ToString();
+            return new Uri("ms-appx://SoundBoard/Assets/SoundBoardAssets/").ToString();
         }
     }
 }

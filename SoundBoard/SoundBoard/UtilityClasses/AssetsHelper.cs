@@ -23,7 +23,7 @@ namespace SoundBoard.UtilityClasses
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        public static string MakeImagePath(string imagePathInAssetsFolder)
+        public static string MakeAssetsPath(string imagePathInAssetsFolder)
         {
             return string.Format("{0}{1}", Constants.AssetsRoot(), imagePathInAssetsFolder);
         }

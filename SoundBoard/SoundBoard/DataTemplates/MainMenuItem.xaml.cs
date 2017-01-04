@@ -14,14 +14,28 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
-
 namespace SoundBoard.DataTemplates
 {
-    public sealed partial class MainMenuItem : UserControl
-    {
-        public MainMenuItem()
+    using SoundBoard.Models;
+
+
+        /// <summary>
+        /// The main menu item.
+        /// </summary>
+        public sealed partial class MainMenuItem : UserControl
         {
-            this.InitializeComponent();
+            /// <summary>
+            /// Initializes a new instance of the <see cref="DataTemplates.MainMenuItem"/> class.
+            /// </summary>
+            public MainMenuItem()
+            {
+                this.InitializeComponent();
+            }
+
+            /// <summary>
+            /// Gets the item.
+            /// </summary>
+            public MenuItem Item => this.DataContext as MenuItem;
         }
-    }
+
 }
