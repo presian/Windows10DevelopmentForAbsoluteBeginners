@@ -10,14 +10,15 @@
     d:DesignWidth="400">
 
     <Grid>
-        <StackPanel Orientation="Vertical">
-<!--            <Image -->
-<!--                Width="150"-->
-<!--                Height="150"-->
-<!--                HorizontalAlignment="Center"-->
-<!--                VerticalAlignment="Center"-->
-<!--                Source="{x:Bind Sound.ImageFile}"/>-->
-            <TextBlock Text="{x:Bind Sound.Name}"
+        <StackPanel Orientation="Vertical"
+                    Background="White">
+            <Image 
+                Width="150"
+                Height="150"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Source="{x:Bind SoundViewItem.ImageFile, Mode=OneWay}"/>
+            <TextBlock Text="{x:Bind SoundViewItem.Name, Mode=OneWay}"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"/>
         </StackPanel>

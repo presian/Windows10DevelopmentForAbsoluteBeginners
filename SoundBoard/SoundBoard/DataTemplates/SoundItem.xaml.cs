@@ -26,8 +26,6 @@ namespace SoundBoard.DataTemplates
     using Windows.UI.Xaml.Media;
     using Windows.UI.Xaml.Navigation;
 
-    using System.Collections.ObjectModel;
-
     using SoundBoard.Models;
 
     /// <summary>
@@ -41,13 +39,12 @@ namespace SoundBoard.DataTemplates
         public SoundItem()
         {
             this.InitializeComponent();
-
-// this.DataContextChanged += (s, e) => Bindings.Update();
+            this.DataContextChanged += (s, e) => Bindings.Update();
         }
 
         /// <summary>
         /// Gets the sounds.
         /// </summary>
-        public Sound Sound => this.DataContext as Sound;
+        public Sound SoundViewItem => this.DataContext as Sound;
     }
 }

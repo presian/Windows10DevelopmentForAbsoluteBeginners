@@ -30,6 +30,7 @@ namespace SoundBoard.DataTemplates
             public MainMenuItem()
             {
                 this.InitializeComponent();
+                this.DataContextChanged += (s, e) => Bindings.Update();
             }
 
             /// <summary>

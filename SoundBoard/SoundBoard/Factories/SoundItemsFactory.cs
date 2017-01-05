@@ -7,6 +7,9 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.Collections.Generic;
+using SoundBoard.DataTemplates;
+
 namespace SoundBoard.Factories
 {
     using System;
@@ -21,29 +24,35 @@ namespace SoundBoard.Factories
     /// </summary>
     public class SoundItemsFactory
     {
+        public static List<Sound> AllSounds = GetSoundItems();
         /// <summary>
         /// The get sounds.
         /// </summary>
-        /// <returns>
-        /// The <see cref="ObservableCollection"/>.
-        /// </returns>
-        public static ObservableCollection<Sound> GetSounds()
+        public static void GetSounds(ObservableCollection<Sound> sounds)
         {
-            return GetSoundItems();
+            if (sounds == null)
+            {
+                throw new ArgumentNullException(nameof(sounds));
+            }
+
+            sounds.Clear();
+            AllSounds.ForEach(sounds.Add);
         }
 
         /// <summary>
         /// The get sounds.
         /// </summary>
+        /// <param name="sounds"></param>
         /// <param name="category">
         /// The category.
         /// </param>
-        /// <returns>
-        /// The <see cref="ObservableCollection"/>.
-        /// </returns>
-        public static ObservableCollection<Sound> GetSounds(SoundCategories category)
+        public static void GetSounds(ObservableCollection<Sound> sounds, SoundCategories category)
         {
-            return new ObservableCollection<Sound>(GetSoundItems().Where(e => e.Category == category));
+            sounds.Clear();
+            var currentSounds = AllSounds
+                .Where(e => e.Category == category)
+                .ToList();
+            currentSounds.ForEach(sounds.Add);
         }
 
         /// <summary>
@@ -52,9 +61,9 @@ namespace SoundBoard.Factories
         /// <returns>
         /// The <see cref="ObservableCollection"/>.
         /// </returns>
-        private static ObservableCollection<Sound> GetSoundItems()
+        private static List<Sound> GetSoundItems()
         {
-            var sounds = new ObservableCollection<Sound>
+            var sounds = new List<Sound>()
                              {
                                  new Sound("Cow", SoundCategories.Animals),
                                  new Sound("Cat", SoundCategories.Animals),

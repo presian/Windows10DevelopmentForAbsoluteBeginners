@@ -7,6 +7,8 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.Linq;
+
 namespace SoundBoard
 {
     using System;
@@ -39,9 +41,11 @@ namespace SoundBoard
         /// </summary>
         public MainPage()
         {
-            this.menuItems = MenuItemsFactory.MakeMenuItems();
-            this.sounds = SoundItemsFactory.GetSounds();
             this.InitializeComponent();
+            this.menuItems = MenuItemsFactory.MakeMenuItems();
+            this.sounds = new ObservableCollection<Sound>();
+            SoundItemsFactory.GetSounds(this.sounds);
+            this.BackButton.Visibility = Visibility.Collapsed;
         }
 
         /// <summary>
@@ -52,7 +56,7 @@ namespace SoundBoard
         /// <summary>
         /// Gets the sounds.
         /// </summary>
-        public ObservableCollection<Sound> Sounds => this.sounds;
+//        public ObservableCollection<Sound> Sounds => this.sounds;
 
         /// <summary>
         /// The main navigation_ on selection changed.
@@ -65,8 +69,18 @@ namespace SoundBoard
         /// </param>
         private void MainMenu_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            var menuItem = sender as ListBox;
+            var item = menuItem?.SelectedItem as MenuItem;
+            if (item != null)
+            {
+                SoundItemsFactory.GetSounds(this.sounds, item.Category);
+                this.CategoryTitle.Text = item.Category.ToString();
+            }
             
+            this.BackButton.Visibility = Visibility.Visible;
         }
+
+        public ObservableCollection<Sound> Sounds => sounds;
 
         /// <summary>
         /// The hamburger button_ on click.
@@ -93,15 +107,19 @@ namespace SoundBoard
         /// </param>
         private void BackButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (this.Frame.CanGoBack)
-            {
-                this.Frame.GoBack();
-            }
+            SoundItemsFactory.GetSounds(this.sounds);
+            this.MainMenu.SelectedItem = null;
+            this.CategoryTitle.Text = "AllSounds";
+            BackButton.Visibility = Visibility.Collapsed;
         }
 
         private void SoundGridView_OnItemClick(object sender, ItemClickEventArgs e)
         {
-            throw new NotImplementedException();
+            var sound = e.ClickedItem as Sound;
+            if (sound != null)
+            {
+                MyMediaElement.Source = new Uri(sound.AudioFile);
+            }
         }
     }
 }

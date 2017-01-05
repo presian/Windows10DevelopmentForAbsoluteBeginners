@@ -7,6 +7,8 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using SoundBoard.Enumerations;
+
 namespace SoundBoard.Models
 {
     /// <summary>
@@ -23,5 +25,7 @@ namespace SoundBoard.Models
         /// Gets or sets the item text.
         /// </summary>
         public string ItemText { get; set; }
+
+        public SoundCategories Category { get; set; }
     }
 }

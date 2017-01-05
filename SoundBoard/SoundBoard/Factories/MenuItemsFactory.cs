@@ -7,6 +7,8 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using SoundBoard.Enumerations;
+
 namespace SoundBoard.Factories
 {
     using System.Collections.Generic;
@@ -32,22 +34,26 @@ namespace SoundBoard.Factories
                 new MenuItem()
                     {
                         ItemImage = AssetsHelper.MakeAssetsPath("Icons/animals.png"),
-                        ItemText = "Animals"
+                        ItemText = "Animals",
+                        Category = SoundCategories.Animals
                     },
                 new MenuItem()
                     {
                         ItemImage = AssetsHelper.MakeAssetsPath("Icons/cartoon.png"),
-                        ItemText = "Cartoons"
+                        ItemText = "Cartoons",
+                        Category = SoundCategories.Cartoons
                     },
                 new MenuItem()
                     {
                         ItemImage = AssetsHelper.MakeAssetsPath("Icons/taunt.png"),
-                        ItemText = "Taunts"
+                        ItemText = "Taunts",
+                        Category = SoundCategories.Taunts
                     },
                 new MenuItem()
                     {
                         ItemImage = AssetsHelper.MakeAssetsPath("Icons/warning.png"),
-                        ItemText = "Warnings"
+                        ItemText = "Warnings",
+                        Category = SoundCategories.Warnings
                     }
                 };
 

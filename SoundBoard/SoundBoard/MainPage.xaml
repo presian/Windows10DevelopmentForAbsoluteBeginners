@@ -60,7 +60,7 @@
                             </StackPanel>
                         </ListBoxItem>
                     </ListBox>
-                    <ListBox Grid.Row="1" ItemsSource="{x:Bind MenuItems}"
+                    <ListBox Grid.Row="1" ItemsSource="{x:Bind MenuItems, Mode=OneWay}"
                              HorizontalContentAlignment="Stretch"
                              ItemContainerStyle="{StaticResource ListBoxItemStyle}"
                              Name="MainMenu"
@@ -102,7 +102,7 @@
                               SelectionMode="None"
                               IsItemClickEnabled="True"
                               ItemClick="SoundGridView_OnItemClick"
-                              ItemsSource="{x:Bind Sounds}">
+                              ItemsSource="{x:Bind Sounds, Mode=OneWay}">
                         <GridView.ItemTemplate>
                             <DataTemplate x:DataType="models:Sound">
                                 <templates:SoundItem></templates:SoundItem>
