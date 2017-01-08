@@ -21,7 +21,7 @@
         <SplitView
                    CompactPaneLength="42"
                    OpenPaneLength="160"
-                   DisplayMode="CompactInline"
+                   DisplayMode="CompactOverlay"
                    IsPaneOpen="False"
                    Name="ContentWrapper">
             <SplitView.Pane>
@@ -103,7 +103,14 @@
                               IsItemClickEnabled="True"
                               ItemClick="SoundGridView_OnItemClick"
                               ItemsSource="{x:Bind Sounds, Mode=OneWay}">
+                        <GridView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapGrid Orientation="Horizontal"
+                              HorizontalAlignment="Center"/>
+                            </ItemsPanelTemplate>
+                        </GridView.ItemsPanel>
                         <GridView.ItemTemplate>
+                            
                             <DataTemplate x:DataType="models:Sound">
                                 <templates:SoundItem></templates:SoundItem>
                             </DataTemplate>
