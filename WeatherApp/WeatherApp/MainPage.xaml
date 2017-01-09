@@ -7,24 +7,18 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="HotPink">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
-        <Button Click="WeatherButton_ClickAsync" Content="Show wheater"
-                Grid.Row="0"
-                HorizontalAlignment="Center"
-                Name="WeatherButton"/>
-        <RelativePanel Grid.Row="1">
+        <RelativePanel Grid.Row="0">
             <StackPanel RelativePanel.AlignHorizontalCenterWithPanel="True"
                         RelativePanel.AlignVerticalCenterWithPanel="True">
                 <TextBlock Name="WeatherText" 
-                           Text="-12 C" 
                            TextAlignment="Center"/>
-                <Image Name="WeatherIcon" 
-                       Source="Assets/LockScreenLogo.png"/>
+                <Image Height="200"
+                       Name="WeatherIcon"
+                       Width="200"/>
             </StackPanel>
         </RelativePanel>
     </Grid>
