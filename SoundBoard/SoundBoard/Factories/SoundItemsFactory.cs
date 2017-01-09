@@ -55,6 +55,16 @@ namespace SoundBoard.Factories
             currentSounds.ForEach(sounds.Add);
         }
 
+        public static void GetSoundsByName(ObservableCollection<Sound> sounds, string name)
+        {
+            sounds.Clear();
+            var currentSounds = AllSounds
+                .Where(s => s.Name == name)
+                .ToList();
+
+            currentSounds.ForEach(s => sounds.Add(s));
+        }
+
         /// <summary>
         /// The get sound items.
         /// </summary>

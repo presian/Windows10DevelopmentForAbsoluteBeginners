@@ -101,6 +101,7 @@
     <Compile Include="DataTemplates\SoundItem.xaml.cs">
       <DependentUpon>SoundItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Enumerations\AudioContentTypes.cs" />
     <Compile Include="Enumerations\SoundCategories.cs" />
     <Compile Include="Factories\MenuItemsFactory.cs" />
     <Compile Include="Factories\SoundItemsFactory.cs" />

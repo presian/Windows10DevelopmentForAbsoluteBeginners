@@ -82,10 +82,15 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <MediaElement Name="MyMediaElement" AutoPlay="True"/>
+                    <MediaElement AutoPlay="True"
+                                  Name="MyMediaElement"/>
                     
-                    <RelativePanel Grid.Row="0">
-                        <AutoSuggestBox PlaceholderText="Search for sounds" 
+                    <RelativePanel Grid.Row="0"
+                                   Padding="0,0,10,0">
+                        <AutoSuggestBox PlaceholderText="Search for sounds"
+                                        Name="Search"
+                                        QuerySubmitted="Search_QuerySubmitted"
+                                        TextChanged="Search_TextChanged"
                                         QueryIcon="Find"
                                         Width="180"
                                         RelativePanel.AlignRightWithPanel="True"/>
@@ -99,6 +104,10 @@
 
                     <GridView Grid.Row="2"
                               Name="SoundGridView"
+                              Margin="10"
+                              AllowDrop="True"
+                              Drop="SoundGridView_DropAsync"
+                              DragOver="SoundGridView_DragOver"
                               SelectionMode="None"
                               IsItemClickEnabled="True"
                               ItemClick="SoundGridView_OnItemClick"

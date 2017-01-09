@@ -15,11 +15,14 @@ namespace SoundBoard
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
 
+    using SoundBoard.Enumerations;
     using SoundBoard.Factories;
     using SoundBoard.Models;
 
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
+    using Windows.ApplicationModel.DataTransfer;
+    using Windows.Storage;
 
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -36,6 +39,10 @@ namespace SoundBoard
         /// </summary>
         private ObservableCollection<Sound> sounds;
 
+        private ObservableCollection<Sound> allSounds;
+
+        private ObservableCollection<Sound> suggestions;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MainPage"/> class.
         /// </summary>
@@ -45,6 +52,9 @@ namespace SoundBoard
             this.menuItems = MenuItemsFactory.MakeMenuItems();
             this.sounds = new ObservableCollection<Sound>();
             SoundItemsFactory.GetSounds(this.sounds);
+            this.allSounds = new ObservableCollection<Sound>();
+            SoundItemsFactory.GetSounds(this.allSounds);
+            this.suggestions = new ObservableCollection<Sound>();
             this.BackButton.Visibility = Visibility.Collapsed;
         }
 
@@ -107,6 +117,11 @@ namespace SoundBoard
         /// </param>
         private void BackButton_OnClick(object sender, RoutedEventArgs e)
         {
+            this.GoBack();
+        }
+
+        private void GoBack()
+        {
             SoundItemsFactory.GetSounds(this.sounds);
             this.MainMenu.SelectedItem = null;
             this.CategoryTitle.Text = "AllSounds";
@@ -119,6 +134,66 @@ namespace SoundBoard
             if (sound != null)
             {
                 MyMediaElement.Source = new Uri(sound.AudioFile);
+            }
+        }
+
+        private async void SoundGridView_DropAsync(object sender, DragEventArgs e)
+        {
+            if (e.DataView.Contains(StandardDataFormats.StorageItems))
+            {
+                var items = await e.DataView.GetStorageItemsAsync();
+
+                if (items.Any())
+                {
+                    var storageFile = items[0] as StorageFile;
+                    var contentType = storageFile.ContentType;
+
+                    StorageFolder folder = ApplicationData.Current.LocalFolder;
+
+                    if(contentType == AudioContentTypes.Wav || contentType == AudioContentTypes.Mpeg)
+                    {
+                        var newFile = await storageFile.CopyAsync(folder, storageFile.Name, NameCollisionOption.GenerateUniqueName);
+                        MyMediaElement.SetSource(await storageFile.OpenAsync(FileAccessMode.Read), contentType);
+                        MyMediaElement.Play();
+                    }
+                }
+            }
+        }
+
+        private void SoundGridView_DragOver(object sender, DragEventArgs e)
+        {
+            e.AcceptedOperation = DataPackageOperation.Copy;
+            e.DragUIOverride.Caption = "Drop .wav or .mpeg file for playing";
+            e.DragUIOverride.IsCaptionVisible = true;
+            e.DragUIOverride.IsContentVisible = true;
+            e.DragUIOverride.IsGlyphVisible = true;
+        }
+
+        private void Search_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            if(string.IsNullOrEmpty(args.QueryText))
+            {
+                this.GoBack();
+            }
+            else
+            {
+                SoundItemsFactory.GetSoundsByName(this.sounds, args.QueryText);
+                this.CategoryTitle.Text = args.QueryText;
+                this.BackButton.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void Search_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            if (string.IsNullOrEmpty(sender.Text))
+            {
+                this.GoBack();
+            }
+            else
+            {
+                this.Search.ItemsSource = this.allSounds
+                .Where(s => s.Name.ToLower().StartsWith(sender.Text.ToLower()))
+                .Select(s => s.Name);
             }
         }
     }
