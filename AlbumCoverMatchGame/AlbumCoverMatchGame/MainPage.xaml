@@ -5,9 +5,88 @@
     xmlns:local="using:AlbumCoverMatchGame"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:AlbumCoverMatchGame.Models"
+    Loaded="PageLoadedAsync"
     mc:Ignorable="d">
+    <Page.Resources>
+        <Storyboard x:Name="CountDown" Completed="CountDownCompleted">
+            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True"
+                                           Storyboard.TargetName="MyProgressBar"
+                                           Storyboard.TargetProperty="(RangeBase.Value)">
+                <DiscreteDoubleKeyFrame KeyTime="0" Value="100"/>
+                <DiscreteDoubleKeyFrame KeyTime="0:0:1" Value="90"/>
+                <DiscreteDoubleKeyFrame KeyTime="0:0:2" Value="80"/>
+                <DiscreteDoubleKeyFrame KeyTime="0:0:3" Value="70"/>
+                <DiscreteDoubleKeyFrame KeyTime="0:0:4" Value="60"/>
+                <DiscreteDoubleKeyFrame KeyTime="0:0:5" Value="50"/>
+                <DiscreteDoubleKeyFrame KeyTime="0:0:6" Value="40"/>
+                <DiscreteDoubleKeyFrame KeyTime="0:0:7" Value="30"/>
+                <DiscreteDoubleKeyFrame KeyTime="0:0:8" Value="20"/>
+                <DiscreteDoubleKeyFrame KeyTime="0:0:9" Value="10"/>
+                <DiscreteDoubleKeyFrame KeyTime="0:0:10" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Button Content="ClickMe" Click="ButtonClickAsync"></Button>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <ProgressBar Foreground="Blue"
+                         Height="20" 
+                         Maximum="100" 
+                         Minimum="0"
+                         Name="MyProgressBar" 
+                         Value="100"/>
+            <TextBlock Foreground="Blue" 
+                       HorizontalAlignment="Center"
+                       Name="InstructionBlock" 
+                       Text=""/>
+            <MediaElement Name="MyMediaElement" AutoPlay="True"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" 
+                    Orientation="Vertical">
+            <GridView IsItemClickEnabled="True" 
+                      ItemClick="SongGridViewItemClick"
+                      ItemsSource="{x:Bind Songs}"
+                      Name="SongGridView" >
+                <GridView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapGrid Orientation="Horizontal"
+                              HorizontalAlignment="Center"/>
+                    </ItemsPanelTemplate>
+                </GridView.ItemsPanel>
+                <GridView.ItemTemplate>
+                    <DataTemplate x:DataType="data:Song">
+                        <Grid>
+                            <Image Name="AlbumCover" Height="75" Width="75" Source="{x:Bind AlbumCover}"/>
+                        </Grid>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+
+                <TextBlock Name="ResultTextBlock"/>
+                <TextBlock Name="TitleTextBlock"/>
+                <TextBlock Name="ArtistTextBlock"/>
+                <TextBlock Name="AlbumTextBlock"/>
+                <Button Background="Red"
+                        Content="Play Again"
+                        HorizontalAlignment="Center"
+                        Name="PlayAgainButton"
+                        Click="PlayAgainButton_OnClick"
+                        Visibility="Collapsed"/>
+            </GridView>
+        </StackPanel>
+
+        <Grid Grid.Row="1">
+            <ProgressRing Foreground="Gray" Height="200"
+                          HorizontalAlignment="Center"
+                          Name="StartupProgress" 
+                          VerticalAlignment="Center" 
+                          Width="200"/>
+        </Grid>
     </Grid>
 </Page>

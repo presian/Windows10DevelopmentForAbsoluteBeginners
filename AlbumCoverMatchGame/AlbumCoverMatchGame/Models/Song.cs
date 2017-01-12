@@ -20,6 +20,8 @@
 
         public bool Selected { get; set; }
 
+        public bool Used { get; set; }
+
         public BitmapImage AlbumCover { get; set; }
     }
 }
