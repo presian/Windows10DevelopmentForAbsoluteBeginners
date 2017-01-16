@@ -67,18 +67,18 @@
                         </Grid>
                     </DataTemplate>
                 </GridView.ItemTemplate>
+            </GridView>
 
-                <TextBlock Name="ResultTextBlock"/>
-                <TextBlock Name="TitleTextBlock"/>
-                <TextBlock Name="ArtistTextBlock"/>
-                <TextBlock Name="AlbumTextBlock"/>
-                <Button Background="Red"
+            <TextBlock Name="ResultTextBlock"/>
+            <TextBlock Name="TitleTextBlock"/>
+            <TextBlock Name="ArtistTextBlock"/>
+            <TextBlock Name="AlbumTextBlock"/>
+            <Button Background="Red"
                         Content="Play Again"
                         HorizontalAlignment="Center"
                         Name="PlayAgainButton"
                         Click="PlayAgainButton_OnClick"
                         Visibility="Collapsed"/>
-            </GridView>
         </StackPanel>
 
         <Grid Grid.Row="1">

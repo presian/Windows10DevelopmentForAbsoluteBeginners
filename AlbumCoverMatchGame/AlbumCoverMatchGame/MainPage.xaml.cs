@@ -30,6 +30,8 @@ namespace AlbumCoverMatchGame
 
         private int round = 0;
 
+        private int score = 0;
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -89,6 +91,19 @@ namespace AlbumCoverMatchGame
             }
         }
 
+        public int Score
+        {
+            get
+            {
+                return this.score;
+            }
+
+            set
+            {
+                this.score = value;
+            }
+        }
+
         private async void PageLoadedAsync(Object sender, RoutedEventArgs e)
         {
             this.StartupProgress.IsActive = true;
@@ -110,6 +125,16 @@ namespace AlbumCoverMatchGame
 
             var randomSongs = await this.PicRandomSongsAsync();
             await this.PopulateSongListAsync(randomSongs);
+
+            this.StartCooldown();
+            this.InstructionBlock.Text = string.Empty;
+            this.ResultTextBlock.Text = string.Empty;
+            this.TitleTextBlock.Text = string.Empty;
+            this.ArtistTextBlock.Text = string.Empty;
+            this.AlbumTextBlock.Text = string.Empty;
+
+            this.Score = 0;
+            this.Round = 0;
         }
 
         private async Task RetriveFileInFolderAsync(StorageFolder parent)
@@ -191,18 +216,60 @@ namespace AlbumCoverMatchGame
             }
         }
 
-        private void SongGridViewItemClick(object sender, ItemClickEventArgs e)
+        private async void SongGridViewItemClick(object sender, ItemClickEventArgs e)
         {
-            if (this.IsMusicPlaying)
+            if (!this.IsMusicPlaying)
             {
-                this.Round++;
+                return;
+            }
+
+            this.CountDown.Pause();
+            this.MyMediaElement.Stop();
+            this.IsMusicPlaying = false;
+
+            // get user selection
+            var clickedSong = e.ClickedItem as Song;
+            if (clickedSong != null)
+            {
+                var correctSong = this.Songs.FirstOrDefault(s => s.Selected);
+                int roundScore = 0;
+                Uri uri;
+
+                if (clickedSong.Selected)
+                {
+                    uri = new Uri("ms-appx:///Assets/correct.png");
+                    roundScore += (int) this.MyProgressBar.Value;
+                }
+                else
+                {
+                    uri = new Uri("ms-appx:///Assets/incorrect.png");
+                    roundScore += -1*(int) this.MyProgressBar.Value;
+                }
+                
+                this.SetResultData(roundScore);
+
+                StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(uri);
+                var fileStream = await file.OpenReadAsync();
+                await clickedSong.AlbumCover.SetSourceAsync(fileStream);
+
+                clickedSong.Used = true;
+            }
+
+            if (this.Round >= 5)
+            {
+                this.InstructionBlock.Text = string.Format("Game over ... You scored: {0}", this.Score);
+                this.PlayAgainButton.Visibility = Visibility.Visible;
+            }
+            else
+            {
                 this.StartCooldown();
             }
         }
 
-        private void PlayAgainButton_OnClick(object sender, RoutedEventArgs e)
+        private async void PlayAgainButton_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            await this.PrepareNewGameAsync();
+            this.PlayAgainButton.Visibility = Visibility.Collapsed;
         }
 
         private async void CountDownCompleted(object sender, object e)
@@ -217,16 +284,32 @@ namespace AlbumCoverMatchGame
             else
             {
                 this.MyMediaElement.Stop();
+                this.IsMusicPlaying = false;
+                this.SetResultData(-100);
+                this.StartCooldown();
             }
+        }
+
+        private void SetResultData(int roundScore)
+        {
+            this.Score += roundScore;
+            var correctSong = this.Songs.FirstOrDefault(s => s.Selected);
+            correctSong.Selected = false;
+            correctSong.Used = true;
+            this.ResultTextBlock.Text = string.Format($"Score: {roundScore} Total score after {this.Round} Rounds: {this.Score}");
+            this.TitleTextBlock.Text = string.Format($"Correct Song: {correctSong.Title}");
+            this.ArtistTextBlock.Text = string.Format($"Performd by: {correctSong.Artist}");
+            this.AlbumTextBlock.Text = string.Format($"On Album: {correctSong.Album}");
         }
 
         private Song PickSong()
         {
             Random random = new Random();
-            var unusedSongs = this.Songs.Where(s => s.Used == false);
+            var unusedSongs = this.Songs.Where(s => s.Used == false).ToList();
             var randomIndex = random.Next(unusedSongs.Count());
             var randomSong = unusedSongs.ElementAt(randomIndex);
             randomSong.Used = true;
+            randomSong.Selected = true;
 
             return randomSong;
         }
@@ -245,6 +328,7 @@ namespace AlbumCoverMatchGame
         private void StartCountdown()
         {
             this.IsMusicPlaying = true;
+            this.Round++;
             SolidColorBrush brush = new SolidColorBrush(Colors.Red);
             this.MyProgressBar.Foreground = brush;
             this.InstructionBlock.Text = "GO!";
