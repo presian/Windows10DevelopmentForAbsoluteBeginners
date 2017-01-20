@@ -5,9 +5,65 @@
     xmlns:local="using:HeroExplorer"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:HeroExplorer.Models"
+    Loaded="MainPage_OnLoadedAsync"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Button Name="GetData" Click="GetData_OnClick" HorizontalAlignment="Center">GetData</Button>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <ListView Name="MasterListView" ItemsSource="{x:Bind Characters}" >
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="data:Character">
+                    <StackPanel Margin="10, 5, 0, 5" 
+                                Orientation="Horizontal">
+                        <Ellipse Height="45" Width="45">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="{x:Bind Thumbnail.Small}"></ImageBrush>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <TextBlock FontSize="18"
+                                   Margin="10,0,0,0"
+                                   Text="{x:Bind Name}"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Grid Grid.Column="1"
+              Grid.Row="0"
+              Name="DetailGrid"/>
+
+        <TextBlock Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Grid.Row="2"
+                   HorizontalAlignment="Center"
+                   Name="Attribution"
+                   VerticalAlignment="Center" />
+
+        <ProgressRing Foreground="Gray"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="2"
+                      Grid.Row="0"
+                      Grid.RowSpan="3"
+                      Height="100"
+                      HorizontalAlignment="Center"
+                      Name="MyProgressRing"
+                      VerticalAlignment="Center"
+                      Width="100" />
     </Grid>
 </Page>

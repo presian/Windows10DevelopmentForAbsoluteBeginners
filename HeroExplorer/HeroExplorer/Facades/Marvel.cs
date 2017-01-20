@@ -1,13 +1,12 @@
 ﻿using System;
-using System.IO;
+using System.Collections.ObjectModel;
 using System.Net.Http;
-using System.Runtime.Serialization.Json;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
 using Windows.Storage.Streams;
 using HeroExplorer.Models;
+using Newtonsoft.Json;
 
 namespace HeroExplorer.Facades
 {
@@ -15,9 +14,35 @@ namespace HeroExplorer.Facades
     {
         private const string PrivateKey = "8641691dc16c6bb2e92f599690b4df7255f22e93";
         private const string PublicKey = "5a3159f81f43becea42562b3b2894aae";
+        private const string ImageNotAvailable = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available";
         private const int MaxCharacters = 1500;
 
-        public static async Task<CharacterDataWrapper> GetCharacterList()
+        public static void PupulateMarvelCharactersAsync(ObservableCollection<Character> characters, CharacterDataWrapper wrapper)
+        {
+            characters.Clear();
+
+            foreach (var character in wrapper.Data.Results)
+            {
+                if (character.Thumbnail != null
+                    && !string.IsNullOrEmpty(character.Thumbnail.Path)
+                    && character.Thumbnail.Path != ImageNotAvailable)
+                {
+                    character.Thumbnail.Small = string.Format(
+                        "{0}/standard_small.{1}",
+                        character.Thumbnail.Path,
+                        character.Thumbnail.Extension);
+
+                    character.Thumbnail.Large = string.Format(
+                       "{0}/portrait_xlarge.{1}",
+                       character.Thumbnail.Path,
+                       character.Thumbnail.Extension);
+
+                    characters.Add(character);
+                }
+            }
+        }
+
+        public static async Task<CharacterDataWrapper> GetCharacterDataWrapperAsync()
         {
             var limit = 10;
 
@@ -33,13 +58,9 @@ namespace HeroExplorer.Facades
             var httpClient = new HttpClient();
             var response = await httpClient.GetAsync(apiUrl);
             var json = await response.Content.ReadAsStringAsync();
-
-            var serializer = new DataContractJsonSerializer(typeof (CharacterDataWrapper));
-            var ms = new MemoryStream(Encoding.UTF8.GetBytes(json));
-            var result = (CharacterDataWrapper) serializer.ReadObject(ms);
+            var result = JsonConvert.DeserializeObject<CharacterDataWrapper>(json);
 
             return result;
-
         }
 
         private static string CreateHash(string timeStamp)
