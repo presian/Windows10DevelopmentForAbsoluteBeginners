@@ -20,12 +20,10 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <ListView Name="MasterListView" ItemsSource="{x:Bind Characters}" >
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
+        <ListView IsItemClickEnabled="True"
+                  ItemClick="MasterListView_OnItemClick" 
+                  ItemsSource="{x:Bind Characters}" 
+                  Name="MasterListView">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="data:Character">
                     <StackPanel Margin="10, 5, 0, 5" 
@@ -46,7 +44,43 @@
 
         <Grid Grid.Column="1"
               Grid.Row="0"
-              Name="DetailGrid"/>
+              Margin="10,0,10,0"
+              Name="DetailGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <Image Grid.Column="0" 
+                       Grid.RowSpan="2" 
+                       Margin="0,0,10,0"
+                       Name="DetailImage"
+                       VerticalAlignment="Top"/>
+                
+                <TextBlock FontSize="32" 
+                           FontWeight="Bold" 
+                           Grid.Column="1"
+                           Grid.Row="0"
+                           Margin="0,0,0,10"
+                           Name="DetailNameTextBlock"/>
+                
+                <TextBlock Grid.Column="1"
+                           Grid.Row="1"
+                           Name="DetailDescriptionTextBlock"
+                           TextWrapping="WrapWholeWords"/>
+            </Grid>
+        </Grid>
 
         <TextBlock Grid.Column="0"
                    Grid.ColumnSpan="2"

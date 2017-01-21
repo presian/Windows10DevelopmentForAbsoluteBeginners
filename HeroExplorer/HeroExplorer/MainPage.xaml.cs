@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using HeroExplorer.Facades;
 using HeroExplorer.Models;
@@ -27,7 +28,6 @@ namespace HeroExplorer
     public sealed partial class MainPage : Page
     {
         private ObservableCollection<Character> characters;
-        private CharacterDataWrapper characterDataWrapper;
 
 
         public MainPage()
@@ -49,31 +49,39 @@ namespace HeroExplorer
             }
         }
 
-        public CharacterDataWrapper CharacterDataWrapper
-        {
-            get
-            {
-                return this.characterDataWrapper;
-            }
-
-            private set
-            {
-                this.characterDataWrapper = value;
-            }
-        }
-
         private async void MainPage_OnLoadedAsync(object sender, RoutedEventArgs e)
         {
             this.MyProgressRing.IsActive = true;
             this.MyProgressRing.Visibility = Visibility.Visible;
             this.Attribution.Text = string.Empty;
 
-            this.CharacterDataWrapper = await Marvel.GetCharacterDataWrapperAsync();
-            Marvel.PupulateMarvelCharactersAsync(this.Characters, CharacterDataWrapper);
+            while (this.Characters.Count < 10)
+            {
+                Task t = Marvel.PupulateMarvelCharactersAsync(this.Characters);
+                await t;
+            }
 
             this.MyProgressRing.IsActive = false;
             this.MyProgressRing.Visibility = Visibility.Collapsed;
-            this.Attribution.Text = this.CharacterDataWrapper.AttributionText;
+            this.Attribution.Text = (Marvel.DataWrapper != null) ? Marvel.DataWrapper.AttributionText : "";
+        }
+
+        private void MasterListView_OnItemClick(object sender, ItemClickEventArgs e)
+        {
+            var selecetdCharacter = e.ClickedItem as Character;
+
+            if (selecetdCharacter == null)
+            {
+                return;
+            }
+
+            this.DetailDescriptionTextBlock.Text = selecetdCharacter.Description;
+            this.DetailNameTextBlock.Text = selecetdCharacter.Name;
+
+            var largeImage = new BitmapImage();
+            var uri = new Uri(selecetdCharacter.Thumbnail.Large, UriKind.Absolute);
+            largeImage.UriSource = uri;
+            this.DetailImage.Source = largeImage;
         }
     }
 }

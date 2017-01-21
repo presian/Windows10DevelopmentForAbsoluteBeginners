@@ -16,29 +16,51 @@ namespace HeroExplorer.Facades
         private const string PublicKey = "5a3159f81f43becea42562b3b2894aae";
         private const string ImageNotAvailable = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available";
         private const int MaxCharacters = 1500;
+        private static CharacterDataWrapper dataWrapper = null;
 
-        public static void PupulateMarvelCharactersAsync(ObservableCollection<Character> characters, CharacterDataWrapper wrapper)
+        public static CharacterDataWrapper DataWrapper
         {
-            characters.Clear();
-
-            foreach (var character in wrapper.Data.Results)
+            get
             {
-                if (character.Thumbnail != null
-                    && !string.IsNullOrEmpty(character.Thumbnail.Path)
-                    && character.Thumbnail.Path != ImageNotAvailable)
+                return dataWrapper;
+            }
+
+            private set
+            {
+                dataWrapper = value;
+            }
+        }
+
+        public static async Task PupulateMarvelCharactersAsync(ObservableCollection<Character> characters)
+        {
+            try
+            {
+                DataWrapper = await GetCharacterDataWrapperAsync();
+                foreach (var character in DataWrapper.Data.Results)
                 {
-                    character.Thumbnail.Small = string.Format(
-                        "{0}/standard_small.{1}",
-                        character.Thumbnail.Path,
-                        character.Thumbnail.Extension);
+                    if (character.Thumbnail != null
+                        && !string.IsNullOrEmpty(character.Thumbnail.Path)
+                        && character.Thumbnail.Path != ImageNotAvailable
+                        && !string.IsNullOrEmpty(character.Description)
+                        && characters.Count < 10)
+                    {
+                        character.Thumbnail.Small = string.Format(
+                            "{0}/standard_small.{1}",
+                            character.Thumbnail.Path,
+                            character.Thumbnail.Extension);
 
-                    character.Thumbnail.Large = string.Format(
-                       "{0}/portrait_xlarge.{1}",
-                       character.Thumbnail.Path,
-                       character.Thumbnail.Extension);
+                        character.Thumbnail.Large = string.Format(
+                            "{0}/portrait_xlarge.{1}",
+                            character.Thumbnail.Path,
+                            character.Thumbnail.Extension);
 
-                    characters.Add(character);
+                        characters.Add(character);
+                    }
                 }
+            }
+            catch (Exception)
+            {
+                return;
             }
         }
 
