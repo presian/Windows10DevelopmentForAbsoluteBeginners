@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace HeroExplorer.Models
+namespace HeroExplorer.Models.Character
 {
 
-    public class StoriesList
+    public class EventsList
     {
         [JsonProperty("available")]
         public int Available { get; set; }
@@ -13,7 +13,7 @@ namespace HeroExplorer.Models
         public string CollectionUri { get; set; }
 
         [JsonProperty("items")]
-        public List<Story> Items { get; set; }
+        public List<Event> Items { get; set; }
 
         [JsonProperty("returned")]
         public int Returned { get; set; }

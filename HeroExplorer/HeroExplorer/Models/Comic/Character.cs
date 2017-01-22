@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 
-namespace HeroExplorer.Models
+namespace HeroExplorer.Models.Comic
 {
 
-    public class Event
+    public class Character
     {
         [JsonProperty("resourceURI")]
         public string ResourceUri { get; set; }

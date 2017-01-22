@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace HeroExplorer.Models
+namespace HeroExplorer.Models.Character
 {
     public class Series
     {

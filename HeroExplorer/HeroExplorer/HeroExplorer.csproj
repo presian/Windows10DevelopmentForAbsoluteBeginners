@@ -99,19 +99,30 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Character.cs" />
-    <Compile Include="Models\CharacterDataContainer.cs" />
-    <Compile Include="Models\CharacterDataWrapper.cs" />
-    <Compile Include="Models\Comics.cs" />
-    <Compile Include="Models\ComicsList.cs" />
-    <Compile Include="Models\Event.cs" />
-    <Compile Include="Models\EventsList.cs" />
-    <Compile Include="Models\Series.cs" />
-    <Compile Include="Models\SeriesList.cs" />
-    <Compile Include="Models\StoriesList.cs" />
-    <Compile Include="Models\Story.cs" />
-    <Compile Include="Models\Thumbnail.cs" />
-    <Compile Include="Models\Url.cs" />
+    <Compile Include="Models\Character\Character.cs" />
+    <Compile Include="Models\Character\CharacterDataContainer.cs" />
+    <Compile Include="Models\Character\CharacterDataWrapper.cs" />
+    <Compile Include="Models\Comic\Character.cs" />
+    <Compile Include="Models\Comic\CharactersList.cs" />
+    <Compile Include="Models\Comic\Comic.cs" />
+    <Compile Include="Models\Comic\ComicDataContainer.cs" />
+    <Compile Include="Models\Comic\ComicDataWrapper.cs" />
+    <Compile Include="Models\Character\Comics.cs" />
+    <Compile Include="Models\Character\ComicsList.cs" />
+    <Compile Include="Models\Character\Event.cs" />
+    <Compile Include="Models\Character\EventsList.cs" />
+    <Compile Include="Models\Character\Series.cs" />
+    <Compile Include="Models\Character\SeriesList.cs" />
+    <Compile Include="Models\Character\StoriesList.cs" />
+    <Compile Include="Models\Character\Story.cs" />
+    <Compile Include="Models\Character\Thumbnail.cs" />
+    <Compile Include="Models\Character\Url.cs" />
+    <Compile Include="Models\Comic\Creator.cs" />
+    <Compile Include="Models\Comic\CreatorsList.cs" />
+    <Compile Include="Models\Comic\Date.cs" />
+    <Compile Include="Models\Comic\Image.cs" />
+    <Compile Include="Models\Comic\Price.cs" />
+    <Compile Include="Models\Comic\TextObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
